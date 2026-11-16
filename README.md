@@ -12,18 +12,18 @@ OCR-Projeto/
   placas_exercício/ (imagens da atividade)
 ```
 
-## 2. Instale as dependências no Windows
+## 2. Rode o instalador no Windows
 
-Instale o Python 3.10 de 64 bits e o Tesseract OCR com o idioma inglês (`eng`). Adicione a pasta do Tesseract ao `PATH` do Windows e abra um novo PowerShell. [Instalação do Tesseract no Windows](https://tesseract-ocr.github.io/tessdoc/Installation#windows)
-
-Abra o PowerShell na pasta `OCR-Projeto`. Os comandos abaixo entram na pasta dos códigos e instalam as bibliotecas do projeto com PyTorch para CPU.
+Instale o Python 3.10 de 64 bits. Abra o PowerShell na pasta `OCR-Projeto` e rode estes comandos com acesso à internet.
 
 ```powershell
 cd .\placas-ocr
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install torch==2.6.0 torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cpu
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+python instalar.py
 ```
+
+O instalador prepara as bibliotecas do Python, usa o WinGet se precisar instalar o Tesseract e baixa os modelos do EasyOCR. Se o Windows pedir confirmação para instalar o Tesseract, siga as etapas da tela e mantenha o idioma inglês (`eng`).
+
+Se o WinGet estiver indisponível, instale o Tesseract com o idioma inglês e adicione a pasta do programa ao `PATH`. Depois rode `python instalar.py` de novo. [Instalação do Tesseract no Windows](https://tesseract-ocr.github.io/tessdoc/Installation#windows)
 
 ## 3. Rode os dois scripts
 
@@ -34,7 +34,7 @@ No mesmo PowerShell, execute os dois comandos abaixo.
 .\.venv\Scripts\python.exe ocr_easyocr.py
 ```
 
-Na primeira execução, o EasyOCR pode demorar um pouco para baixar os modelos. Se você guardou as fotos em outra pasta, passe o caminho entre aspas depois do nome do script, nos dois comandos.
+Se as fotos estiverem em outra pasta, passe o caminho entre aspas depois do nome do script, nos dois comandos.
 
 ## 4. Confira os resultados
 
