@@ -1,6 +1,6 @@
 # OCR de placas veiculares
 
-Atividade de Processamento Digital de Imagens. O projeto procura a placa nas fotos e recorta a região encontrada. Depois, usa Tesseract e EasyOCR para comparar a leitura dos caracteres na mesma faixa da placa.
+Como atividade da matéria de Processamento Digital de Imagens foi realizado o projeto o qual procura a placa nas fotos e recorta a região encontrada. Depois, usa as bibliotecas Tesseract e EasyOCR para comparar a leitura dos caracteres na mesma faixa da placa.
 
 ## 1. Organize as pastas
 
