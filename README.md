@@ -32,9 +32,9 @@ O instalador atualiza o pip, instala as bibliotecas e baixa os modelos do EasyOC
 
 ## Funcionamento
 
-O código usa o filtro gaussiano, o Canny e os contornos para localizar a placa. Depois, corrige a perspectiva e recorta a faixa dos caracteres, seguindo o exemplo `placa_automatica.py`.
+O código usa o filtro gaussiano, o Canny e os contornos para localizar a placa. Depois, corrige a perspectiva e recorta a faixa dos caracteres, seguindo os métodos trabalhados durante as aulas.
 
-Os dois scripts testam a faixa colorida, escala de cinza, Otsu e limiar adaptativo. Os arquivos de texto guardam a leitura da faixa colorida.
+Os dois scripts testam a faixa colorida, escala de cinza, Otsu e limiar adaptativo para buscar a melhor opção. Os arquivos de texto guardam a leitura da faixa colorida, pois nos testes foi a que apresentou melhor desempenho geral.
 
 ## Resultados
 
