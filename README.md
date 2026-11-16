@@ -1,54 +1,52 @@
 # OCR de placas veiculares
 
-Como atividade da matéria de Processamento Digital de Imagens foi realizado o projeto o qual procura a placa nas fotos e recorta a região encontrada. Depois, usa as bibliotecas Tesseract e EasyOCR para comparar a leitura dos caracteres na mesma faixa da placa.
+Projeto desenvolvido em Python para a atividade de Processamento Digital de Imagens.
 
-## 1. Organize as pastas
+O objetivo é detectar placas nas fotos e comparar a leitura dos caracteres com Tesseract e EasyOCR. Os dois usam o mesmo recorte.
 
-Baixe o repositório e extraia os arquivos. Na sua cópia local, coloque a pasta `placas_exercício`, com as imagens da atividade, ao lado da pasta `placas-ocr`. A estrutura fica assim.
+## Requisitos
 
-```text
-OCR-Projeto/
-  placas-ocr/       (códigos e requirements.txt)
-  placas_exercício/ (imagens da atividade)
-```
+- Windows e Python 3.10 de 64 bits.
+- Acesso à internet para a primeira instalação.
+- Imagens da pasta `placas_exercício` fornecida na atividade.
 
-## 2. Rode o instalador no Windows
+## Como executar
 
-Instale o Python 3.10 de 64 bits. Abra o PowerShell na pasta `OCR-Projeto` e rode estes comandos com acesso à internet.
+1. Baixe e extraia os arquivos do repositório.
+2. Na sua cópia local, coloque a pasta `placas_exercício` ao lado de `placas-ocr`.
+3. Abra o PowerShell dentro de `placas-ocr`, onde está o arquivo `instalar.py`.
+4. Rode o instalador e aguarde a conclusão.
 
-```powershell
-cd .\placas-ocr
-python instalar.py
-```
+   ```powershell
+   python instalar.py
+   ```
 
-O instalador prepara as bibliotecas do Python, usa o WinGet se precisar instalar o Tesseract e baixa os modelos do EasyOCR. Se o Windows pedir confirmação para instalar o Tesseract, siga as etapas da tela e mantenha o idioma inglês (`eng`).
+5. No mesmo PowerShell, execute os dois scripts.
 
-Se o WinGet estiver indisponível, instale o Tesseract com o idioma inglês e adicione a pasta do programa ao `PATH`. Depois rode `python instalar.py` de novo. [Instalação do Tesseract no Windows](https://tesseract-ocr.github.io/tessdoc/Installation#windows)
+   ```powershell
+   .\.venv\Scripts\python.exe ocr_tesseract.py
+   .\.venv\Scripts\python.exe ocr_easyocr.py
+   ```
 
-## 3. Rode os dois scripts
+O instalador prepara as bibliotecas, baixa os modelos do EasyOCR e usa o WinGet se precisar instalar o Tesseract. Se o WinGet estiver indisponível, instale o Tesseract com o idioma inglês (`eng`), adicione o programa ao `PATH` do Windows e rode o instalador de novo. [Instalação do Tesseract no Windows](https://tesseract-ocr.github.io/tessdoc/Installation#windows)
 
-No mesmo PowerShell, execute os dois comandos abaixo.
+## Funcionamento
 
-```powershell
-.\.venv\Scripts\python.exe ocr_tesseract.py
-.\.venv\Scripts\python.exe ocr_easyocr.py
-```
+O código usa o filtro gaussiano, o Canny e os contornos para localizar a placa. Depois, corrige a perspectiva e recorta a faixa dos caracteres, seguindo o exemplo `placa_automatica.py`.
 
-Se as fotos estiverem em outra pasta, passe o caminho entre aspas depois do nome do script, nos dois comandos.
+Os dois scripts testam a faixa colorida, escala de cinza, Otsu e limiar adaptativo. Os arquivos de texto guardam a leitura da faixa colorida.
 
-## 4. Confira os resultados
+## Resultados
 
-O Tesseract grava em `resultados/tesseract/` e o EasyOCR em `resultados/easyocr/`. Cada foto tem um arquivo por método, como `1_tesseract.txt` e `1_easyocr.txt`. Depois de rodar os dois scripts, abra `resultados/resumo_ocr.txt` para ver as leituras lado a lado. A entrega já traz o [resumo da execução](placas-ocr/resultados/resumo_ocr.txt).
+Cada método gera um arquivo `.txt` por foto na pasta `resultados`. Depois de rodar os dois scripts, consulte o [resumo das leituras](placas-ocr/resultados/resumo_ocr.txt) para comparar os resultados lado a lado.
 
-## Comparação
+O detector recortou uma região de placa em 19 das 20 fotos. A foto 4 ficou sem detecção. Na foto 2, a placa de baixo foi escolhida pela regra do maior contorno.
 
-A detecção segue o exemplo `placa_automatica.py`, com os limiares do Canny e a proporção máxima ajustados para as fotos da atividade. Os dois scripts mostram no terminal as leituras com quatro formas de preparar a mesma faixa da placa. A leitura da faixa colorida é a que vai para os arquivos de texto.
-
-| Faixa usada no OCR | Tesseract | EasyOCR |
+| Faixa testada | Tesseract | EasyOCR |
 | --- | ---: | ---: |
 | Colorida | 3/20 | 2/20 |
 | Escala de cinza | 3/20 | 1/20 |
 | Otsu | 3/20 | 0/20 |
 | Limiar adaptativo | 0/20 | 0/20 |
 
-A tabela conta as leituras completas que conferem com as fotos. O detector encontrou uma região de placa em 19 das 20 imagens. A foto 4 ficou sem detecção. Na foto 2, o detector escolheu a placa de baixo pela regra do maior contorno.
+A tabela mostra quantas leituras completas bateram com as fotos.
