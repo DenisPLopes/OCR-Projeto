@@ -1,16 +1,15 @@
-import pytesseract
+import pytesseract # Importando a Biblioteca tesseract
 
 from instalar import localizar_tesseract
-from processamento import ALFABETO, ler_argumentos, limpar_texto, processar_lote
+from processamento import ALFABETO, ler_argumentos, limpar_texto, processar_lote # Importando do arquivo processamento.py
 
-
+# Usa o PSM 8 para ler a faixa da placa como uma única palavra
 def reconhecer(imagem):
-    # O PSM 8 lê a faixa como uma única palavra.
     config = f"--oem 3 --psm 8 -c tessedit_char_whitelist={ALFABETO}"
     texto = pytesseract.image_to_string(imagem, config=config)
     return limpar_texto(texto)
 
-
+# Localiza o Tesseract e roda o OCR em todas as fotos da pasta.
 def main():
     args = ler_argumentos()
     executavel = localizar_tesseract()
