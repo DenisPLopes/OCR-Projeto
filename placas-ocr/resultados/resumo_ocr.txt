@@ -1,0 +1,22 @@
+Imagem | Tesseract           | EasyOCR
+-------+---------------------+--------------------
+1.JPG  | LR                  | IFA1T95
+2.JPG  | NEVIC08             | NEVICO8
+3.JPG  | LYLZL40             | YLLLO
+4.JPG  | SEM PLACA DETECTADA | SEM PLACA DETECTADA
+5.JPG  | USOGT321            | USQ0T32
+6.JPG  | TYL3X75             | TVL3X75
+7.JPG  | HAULU               | MAVLJJ
+8.JPG  | XHY6U29             | XHV6U29
+9.JPG  | AUH4UL0             | H0H4J1O
+10.JPG | PPU7G2ZZ            | PDU7622
+11.JPG | WNOU70              | MNL5470
+12.JPG | JLIW00              | UIM66
+13.JPG | ADR                 | MBP8Q8Y
+14.JPG | PO                  | PHXSHUU
+15.JPG | THY7E19             | THVZE1P
+16.JPG | UKUI                | UKMU9J
+17.JPG | VNZO3H77            | BRNZQ3M7ZUASIL
+18.JPG | XDA5SE50            | XDA5E5O
+19.JPG | CO                  | L0I470
+20.JPG | L0G4                | 1W61044
