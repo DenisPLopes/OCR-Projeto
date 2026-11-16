@@ -70,9 +70,12 @@ def limpar_texto(texto):
 
 
 def ler_argumentos():
+    dataset = PASTA_PROJETO.parent / "placas_exercício"
+    if not dataset.is_dir():
+        dataset = PASTA_PROJETO / "placas_exercício"
+
     parser = ArgumentParser()
-    parser.add_argument("dataset", nargs="?", type=Path,
-                        default=PASTA_PROJETO.parent / "placas_exercício")
+    parser.add_argument("dataset", nargs="?", type=Path, default=dataset)
     return parser.parse_args()
 
 

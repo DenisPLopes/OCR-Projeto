@@ -1,6 +1,7 @@
 import pytesseract
 
-from processamento import ALFABETO, PASTA_PROJETO, ler_argumentos, limpar_texto, processar_lote
+from instalar import localizar_tesseract
+from processamento import ALFABETO, ler_argumentos, limpar_texto, processar_lote
 
 
 def reconhecer(imagem):
@@ -12,8 +13,8 @@ def reconhecer(imagem):
 
 def main():
     args = ler_argumentos()
-    executavel = PASTA_PROJETO.parent / "ferramentas-ocr" / "tesseract" / "tesseract.exe"
-    if executavel.is_file():
+    executavel = localizar_tesseract()
+    if executavel is not None:
         pytesseract.pytesseract.tesseract_cmd = str(executavel)
 
     try:

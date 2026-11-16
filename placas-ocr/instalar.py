@@ -4,6 +4,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import sys
+from sysconfig import get_config_var, get_platform
 from tempfile import TemporaryDirectory
 from zipfile import BadZipFile, ZipFile
 
@@ -99,19 +100,24 @@ def preparar_easyocr(python):
 def main():
     if os.name != "nt":
         raise SystemExit("Este instalador foi preparado para Windows.")
-    if sys.version_info < (3, 10) or sys.maxsize <= 2**32:
-        raise SystemExit("Use Python 3.10 ou mais recente de 64 bits.")
+    versao = sys.version_info[:2]
+    if (sys.implementation.name != "cpython" or get_platform() != "win-amd64"
+            or not (3, 10) <= versao <= (3, 13) or get_config_var("Py_GIL_DISABLED")):
+        raise SystemExit("Use a versão padrão do Python 3.10 a 3.13 para Windows de 64 bits (x64).")
 
     print("1/3 Preparando as bibliotecas do Python...", flush=True)
     ambiente = PROJETO / ".venv"
     subprocess.run([sys.executable, "-m", "venv", str(ambiente)], check=True)
     python = str(ambiente / "Scripts" / "python.exe")
-    pip = [python, "-m", "pip", "install"]
-    subprocess.run(
-        pip + ["torch==2.6.0", "torchvision==0.21.0", "--index-url", "https://download.pytorch.org/whl/cpu"],
-        check=True,
-    )
-    subprocess.run(pip + ["-r", str(PROJETO / "requirements.txt")], check=True)
+    pip = [python, "-m", "pip", "install", "--index-url", "https://pypi.org/simple"]
+    subprocess.run(pip + ["--upgrade", "pip"], check=True)
+
+    # Baixa os dois pacotes de CPU do PyTorch e busca as outras bibliotecas no PyPI.
+    tag = f"cp{versao[0]}{versao[1]}"
+    base = "https://download.pytorch.org/whl/cpu"
+    torch = f"torch @ {base}/torch-2.6.0%2Bcpu-{tag}-{tag}-win_amd64.whl"
+    torchvision = f"torchvision @ {base}/torchvision-0.21.0%2Bcpu-{tag}-{tag}-win_amd64.whl"
+    subprocess.run(pip + [torch, torchvision, "-r", str(PROJETO / "requirements.txt")], check=True)
 
     print("2/3 Preparando o Tesseract...", flush=True)
     preparar_tesseract()

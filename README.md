@@ -6,7 +6,7 @@ O objetivo é detectar placas nas fotos e comparar a leitura dos caracteres com 
 
 ## Requisitos
 
-- Windows e Python 3.10 de 64 bits.
+- Windows de 64 bits (x64) e Python 3.10 ou 3.11.
 - Acesso à internet para a primeira instalação.
 - Imagens da pasta `placas_exercício` fornecida na atividade.
 
@@ -28,7 +28,7 @@ O objetivo é detectar placas nas fotos e comparar a leitura dos caracteres com 
    .\.venv\Scripts\python.exe ocr_easyocr.py
    ```
 
-O instalador prepara as bibliotecas, baixa os modelos do EasyOCR e usa o WinGet se precisar instalar o Tesseract. Se o WinGet estiver indisponível, instale o Tesseract com o idioma inglês (`eng`), adicione o programa ao `PATH` do Windows e rode o instalador de novo. [Instalação do Tesseract no Windows](https://tesseract-ocr.github.io/tessdoc/Installation#windows)
+O instalador atualiza o pip, instala as bibliotecas e baixa os modelos do EasyOCR. O EasyOCR usa o PyTorch para rodar esses modelos. Se for preciso instalar o Tesseract, o instalador usa o WinGet. Se o WinGet estiver indisponível, instale o Tesseract com o idioma inglês (`eng`), adicione o programa ao `PATH` do Windows e rode o instalador de novo. [Instalação do Tesseract no Windows](https://tesseract-ocr.github.io/tessdoc/Installation#windows)
 
 ## Funcionamento
 

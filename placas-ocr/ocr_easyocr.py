@@ -14,14 +14,18 @@ def reconhecer(leitor, imagem):
     return limpar_texto(texto)
 
 
-def main():
-    args = ler_argumentos()
+def criar_leitor():
     pasta = PASTA_PROJETO.parent / "ferramentas-ocr" / "easyocr"
     opcoes_locais = {}
     if pasta.is_dir():
         opcoes_locais["model_storage_directory"] = str(pasta / "model")
         opcoes_locais["user_network_directory"] = str(pasta / "user_network")
-    leitor = easyocr.Reader(["en"], gpu=False, verbose=False, **opcoes_locais)
+    return easyocr.Reader(["en"], gpu=False, verbose=False, **opcoes_locais)
+
+
+def main():
+    args = ler_argumentos()
+    leitor = criar_leitor()
     processar_lote(args.dataset, "easyocr", lambda imagem: reconhecer(leitor, imagem))
 
 
