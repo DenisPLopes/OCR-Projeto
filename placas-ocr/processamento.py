@@ -9,16 +9,15 @@ import numpy as np
 PASTA_PROJETO = Path(__file__).resolve().parent
 ALFABETO = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
-
+# Escolhe o maior contorno com formato de placa e corrige a perspectiva
 def extrair_placa(imagem):
-    # Bordas e contornos, como no exemplo placa_automatica.py.
     cinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
     suavizada = cv2.GaussianBlur(cinza, (5, 5), 0)
     bordas = cv2.Canny(suavizada, 90, 220)
     bordas = cv2.dilate(bordas, np.ones((3, 3), np.uint8), iterations=1)
     contornos, _ = cv2.findContours(bordas, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
-    # Escolhe o maior quadrilátero com área e proporção de placa.
+    # Escolhe o maior quadrilátero com área e proporção de placa
     candidatos = []
     altura, largura = imagem.shape[:2]
     for contorno in contornos:
@@ -41,7 +40,7 @@ def extrair_placa(imagem):
     candidatos.sort(key=lambda item: item[0], reverse=True)
     poligono = candidatos[0][1]
 
-    # Ordena os quatro cantos e corrige a perspectiva.
+    # Ordena os quatro cantos e corrige a perspectiva
     pontos = poligono.reshape(4, 2).astype(np.float32)
     soma = pontos.sum(axis=1)
     diferenca = np.diff(pontos, axis=1).ravel()
@@ -55,7 +54,7 @@ def extrair_placa(imagem):
 
 
 def preparar_placa(placa):
-    # Aplica os pré-processamentos da aula à mesma faixa dos caracteres.
+    # Recorta a faixa dos caracteres e prepara as quatro versões para o OCR
     faixa = placa[55:205, 48:590]
     cinza = cv2.cvtColor(faixa, cv2.COLOR_BGR2GRAY)
     _, otsu = cv2.threshold(cinza, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
@@ -66,9 +65,10 @@ def preparar_placa(placa):
 
 
 def limpar_texto(texto):
+    # Normalizando o texto em maiúsculas e mantendo só letras de A a Z e números
     return re.sub(r"[^A-Z0-9]", "", texto.upper())
 
-
+# Define a pasta padrão das fotos e aceita outro caminho pelo terminal
 def ler_argumentos():
     dataset = PASTA_PROJETO.parent / "placas_exercício"
     if not dataset.is_dir():
@@ -78,7 +78,7 @@ def ler_argumentos():
     parser.add_argument("dataset", nargs="?", type=Path, default=dataset)
     return parser.parse_args()
 
-
+# Processa as fotos da pasta e salva um TXT por imagem para o método usado
 def processar_lote(dataset, metodo, reconhecer):
     arquivos = sorted(
         arquivo for arquivo in dataset.rglob("*")
@@ -113,7 +113,7 @@ def processar_lote(dataset, metodo, reconhecer):
 
     salvar_resumo(arquivos)
 
-
+# Coloca as leituras do Tesseract e do EasyOCR lado a lado para cada foto
 def salvar_resumo(arquivos):
     if all(arquivo.stem.isdecimal() for arquivo in arquivos):
         arquivos = sorted(arquivos, key=lambda arquivo: int(arquivo.stem))
