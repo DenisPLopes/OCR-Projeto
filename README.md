@@ -13,7 +13,7 @@ O objetivo é detectar placas nas fotos e comparar a leitura dos caracteres com 
 ## Como executar
 
 1. Baixe e extraia os arquivos do repositório.
-2. Na sua cópia local, coloque a pasta `placas_exercício` ao lado de `placas-ocr`.
+2. Na sua cópia local, as fotos estão na pasta `placas_exercício` ao lado de `placas-ocr`.
 3. Abra o PowerShell dentro de `placas-ocr`, onde está o arquivo `instalar.py`.
 4. Rode o instalador e aguarde a conclusão.
 
